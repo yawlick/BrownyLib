@@ -1,0 +1,9 @@
+name: BrownyLib
+version: '1.0'
+main: ru.yawlick.brownylib.BrownyLib
+api-version: '1.21'
+prefix: BrownyLib
+authors: [ yawlick ]
+description: what the heck
+commands:
+  world:

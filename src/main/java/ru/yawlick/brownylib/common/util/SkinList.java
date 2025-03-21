@@ -1,0 +1,19 @@
+package ru.yawlick.brownylib.common.util;
+
+import lombok.Getter;
+
+@Getter
+public enum SkinList {
+    DEFAULT(
+            "ewogICJ0aW1lc3RhbXAiIDogMTczNjU4MjgxNTkxMCwKICAicHJvZmlsZUlkIiA6ICIwZjc5MTUzMDMxNDM0MGYwOTAyNDgzYTBlYjRhMTkyMSIsCiAgInByb2ZpbGVOYW1lIiA6ICJpTGlzb3YiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhhM2QzNTFlNGI2NDQwNGY1ZmI2NzlkMzBiYmVjOTcxZjI0ZTZmMjhmYmJhMjZhOTdlNzI0ZDE5MzgxZjljZiIKICAgIH0sCiAgICAiQ0FQRSIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjlhNzY1Mzc2NDc5ODlmOWEwYjZkMDAxZTMyMGRhYzU5MWMzNTllOWU2MWEzMWY0Y2UxMWM4OGYyMDdmMGFkNCIKICAgIH0KICB9Cn0=",
+            "gfA9WSLinZrspMuQMtrh/JFwbWG0zNlHZDtlUqZWrhJLE2UdHW3O94MR8Wn4Pko4sKg8qbGU5cig2A7we1mDuHxVYbkb5e/3j3/fIuyetXwT+LxA1WJmius2PZmjpgXKbjRdaqCSp4QUvioM+KzQXMUxiuxvpf75OpmRdfQth06oG5pNru2j2cP24Xl8B2xn13hpDlDEl5ivbQvpaD9ZEbJ6Ur5UJAsBc6t4dhKzv1W4aPyxr6FovnV5c7RQ1OUhN9YFlmfjnsTzskcJ6vxctkoAm1gTruTzEUT+hoz3H6pwQVvAWS2WjqiAANf5XPuKyeGATcsOF8SSn+9AQ0f8vP9X1LE4RgeALOolXxkqcT+3WwUIkJqt9ngVOinSjTg/NNPmhk7XlGzLMO38RI88ygwBlFdpYnMNy4qkskzp6x8VpJvNt0/u/GFN/6F6Oz1M9c6T4w/1JxsAH4iUEGeZ4gwozvNwa9IQ0uYeIbilUDAoIztV4hloGZW6/zfOOs2Eig6u1Hn/84Iu4qKhyegGdtSvogffclHIUEIs8bg8hhoBqLE3M83iEyGnQO4sOKsyXfuIe9J1h/hBh+efxxDJn+vCdvqZ2TDBGehTM2i3WjpcFD/z/2PVyHLiCn//doiE7hxSgzZGHuk9AX36mEU4qL/hZlNaizCljxnOyAivf3Y="
+    );
+
+    private final String texture;
+    private final String sign;
+
+    SkinList(String texture, String sign) {
+        this.texture = texture;
+        this.sign = sign;
+    }
+}
