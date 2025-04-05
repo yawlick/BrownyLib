@@ -135,6 +135,16 @@ public class Args {
         return "";
     }
 
+    public String all() {
+        String all = "";
+
+        for(String arg : args) {
+            all = all.concat(" " + arg);
+        }
+
+        return all;
+    }
+
     /// -- ## Getters / Integer ## --
     public int getInt(int num) {
         if(!isEmpty() && args.length >= num) {

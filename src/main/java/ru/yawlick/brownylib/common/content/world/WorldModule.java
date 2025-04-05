@@ -4,7 +4,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import ru.yawlick.brownylib.api.content.world.IWorldModule;
 import ru.yawlick.brownylib.common.content.AbstractModule;
-import ru.yawlick.brownylib.common.content.world.generator.EmptyWorldGenerator;
+import ru.yawlick.brownylib.common.content.world.generator.EmptyChunkGenerator;
 import ru.yawlick.brownylib.common.util.TextUtil;
 
 public final class WorldModule extends AbstractModule implements IWorldModule {
@@ -13,10 +13,10 @@ public final class WorldModule extends AbstractModule implements IWorldModule {
     }
 
     public void createEmptyWorld(String name) {
-        if(Bukkit.getWorld(name) == null)
+        if(Bukkit.getWorld(name) != null)
             return;
         WorldCreator creator = new WorldCreator(name);
-        creator.generator(new EmptyWorldGenerator());
+        creator.generator(new EmptyChunkGenerator());
         World world = creator.createWorld();
         world.setTime(1000L);
         world.setPVP(false);

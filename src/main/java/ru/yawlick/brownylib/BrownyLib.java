@@ -7,6 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import ru.yawlick.brownylib.api.IFastBrowny;
 import ru.yawlick.brownylib.api.content.command.ICommandModule;
+import ru.yawlick.brownylib.api.content.data.DataContainer;
+import ru.yawlick.brownylib.api.content.data.DataGroup;
+import ru.yawlick.brownylib.api.content.data.DataStore;
 import ru.yawlick.brownylib.api.content.entity.CustomEntity;
 import ru.yawlick.brownylib.api.content.entity.ICustomEntityModule;
 import ru.yawlick.brownylib.api.content.event.IEventModule;
@@ -18,6 +21,7 @@ import ru.yawlick.brownylib.api.content.scoreboard.IScoreboardModule;
 import ru.yawlick.brownylib.api.content.world.IWorldModule;
 import ru.yawlick.brownylib.common.config.ConfigManager;
 import ru.yawlick.brownylib.common.content.command.CommandModule;
+import ru.yawlick.brownylib.common.content.data.DataModule;
 import ru.yawlick.brownylib.common.content.entity.CustomEntityModule;
 import ru.yawlick.brownylib.common.content.event.EventModule;
 import ru.yawlick.brownylib.api.content.menu.Menu;
@@ -33,12 +37,15 @@ import java.util.logging.Logger;
 
 @Getter
 public final class BrownyLib extends JavaPlugin implements IFastBrowny {
-    public static String PREFIX = " §6[§l#FF0000Browny§r§6] » §e";
+    public static String PREFIX = " §6[§lBrowny§r§6] » §e";
     public static Logger LOGGER = Logger.getLogger("Browny");
     @Getter private static BrownyLib instance;
     private ConfigManager configManager;
 
+    DataStore brownyDataStore;
+
     /// -# Modules #-
+    private DataModule dataModule;
     private ICommandModule commandModule;
     private ICustomEntityModule customEntityModule;
     private IEventModule eventModule;
@@ -55,6 +62,7 @@ public final class BrownyLib extends JavaPlugin implements IFastBrowny {
         configManager = new ConfigManager();
         configManager.setup(getDataFolder());
 
+        dataModule = new DataModule(); dataModule.load();
         commandModule = new CommandModule();
         customEntityModule = new CustomEntityModule();
         eventModule = new EventModule();
@@ -64,9 +72,13 @@ public final class BrownyLib extends JavaPlugin implements IFastBrowny {
         scoreboardModule = new ScoreboardModule();
         worldModule = new WorldModule();
 
+        brownyDataStore = dataModule.getDataStore(this);
+        DataGroup group = brownyDataStore.getGroup("player-data");
+        DataContainer container = group.getContainer("test-container");
+        container.set("key", "value").set("key #2", "value #2").set("lisov", "pidar");
+
         HashMap<String, Integer> randomTestMap = getTestMap();
         randomModule = IRandomModule.create(randomTestMap);
-
         log(randomModule.get());
         log(randomModule.get());
         log(randomModule.get());
@@ -93,6 +105,7 @@ public final class BrownyLib extends JavaPlugin implements IFastBrowny {
 
     @Override
     public void onDisable() {
+        dataModule.unload();
         worldModule.unload();
     }
 

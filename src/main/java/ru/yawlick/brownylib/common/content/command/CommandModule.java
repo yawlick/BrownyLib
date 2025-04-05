@@ -18,7 +18,8 @@ public final class CommandModule extends AbstractModule implements ICommandModul
 
     public CommandModule() {
         commands.addAll(Arrays.asList(
-                new WorldCommand(true)
+                new WorldCommand(true),
+                new HextestCommand(true)
         ));
         load();
     }

@@ -1,9 +1,11 @@
 name: BrownyLib
-version: '1.0'
+version: 'BETA'
 main: ru.yawlick.brownylib.BrownyLib
-api-version: '1.21'
+depend: [ ProtocolLib ]
+api-version: '1.21.4'
 prefix: BrownyLib
-authors: [ yawlick ]
+author: yawlick
 description: what the heck
 commands:
   world:
+  hextest:

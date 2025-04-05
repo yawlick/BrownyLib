@@ -2,12 +2,11 @@ package ru.yawlick.brownylib.common.content.network;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListeningWhitelist;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.events.PacketListener;
+import com.comphenix.protocol.events.*;
+import com.comphenix.protocol.injector.GamePhase;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.network.protocol.game.ServerboundSignUpdatePacket;
 import org.bukkit.plugin.Plugin;
 import ru.yawlick.brownylib.BrownyLib;
@@ -24,11 +23,16 @@ public final class NetworkModule extends AbstractModule implements INetworkModul
     private final Map<Class<? extends Packet>, Set<Consumer<WrappedPacket>>> receivingConsumers = new HashMap<>();
 
     public NetworkModule() {
-        load();
+        // TODO: Сделать что бы PacketListener из PrtocolLib'а реально читал пакеты
+        //load();
     }
 
     @Override
     public void load() {
+        ArrayList<PacketType> whitelist = new ArrayList<>();
+        for(PacketType packetType : PacketType.values()) {
+            whitelist.add(packetType);
+        }
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketListener() {
             @Override
             public void onPacketSending(PacketEvent packetEvent) {
@@ -41,19 +45,23 @@ public final class NetworkModule extends AbstractModule implements INetworkModul
             }
 
             @Override
-            public ListeningWhitelist getSendingWhitelist() {
-                return null;
+            public ListeningWhitelist getReceivingWhitelist() {
+                return ListeningWhitelist.newBuilder().types(whitelist).build();
             }
 
             @Override
-            public ListeningWhitelist getReceivingWhitelist() {
-                return null;
+            public ListeningWhitelist getSendingWhitelist() {
+                return ListeningWhitelist.newBuilder().types(whitelist).build();
             }
 
             @Override
             public Plugin getPlugin() {
                 return BrownyLib.getInstance();
             }
+        });
+
+        registerSending(ClientboundAddEntityPacket.class, (packet) -> {
+            log("Adding new entity for player %s", packet.getPlayer().getName());
         });
 
         registerReceiving(ServerboundSignUpdatePacket.class, (packet) -> {
